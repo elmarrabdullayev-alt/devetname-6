@@ -1,0 +1,468 @@
+/* Dəvətnamə 6 - The Secret Garden (Gizli Bağ) Styles */
+
+/* 1. Theme Configuration (Dark / Light toggleable) */
+.invitation6 {
+  --page-bg: #faf7f2;
+  --card-bg: #ffffff;
+  --text-primary: #332b25;
+  --text-secondary: #756b62;
+  --border-color: rgba(51, 43, 37, 0.14);
+  --accent-color: #b7965c;
+  --input-bg: #faf7f0;
+  --input-text: #332b25;
+  --input-placeholder: rgba(51, 43, 37, 0.45);
+  --btn-primary-bg: #3e463a;
+  --btn-primary-text: #faf7f0;
+}
+
+.invitation6--dark {
+  --page-bg: #090909;
+  --card-bg: #121212;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.68);
+  --border-color: rgba(255, 255, 255, 0.16);
+  --accent-color: #c9aa6a;
+  --input-bg: #181818;
+  --input-text: #ffffff;
+  --input-placeholder: rgba(255, 255, 255, 0.45);
+  --btn-primary-bg: #c9aa6a;
+  --btn-primary-text: #090909;
+}
+
+:root {
+  --ivory: #FAF7F0;
+  --cream: #F3EBDD;
+  --champagne-gold: #B99555;
+  --deep-olive: #3E463A;
+  --espresso: #49382F;
+  --blush: #E7CEC5;
+  --sage: #A8B29A;
+}
+
+.font-serif-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans-montserrat {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Subtle gold pulse effect on open button */
+@keyframes subtle-gold-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 18px -2px rgba(185, 149, 85, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  }
+  50% {
+    box-shadow: 0 6px 24px 2px rgba(185, 149, 85, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  }
+}
+
+.gold-pulse-button {
+  animation: subtle-gold-pulse 3.2s infinite ease-in-out;
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 2.2s infinite ease-in-out;
+}
+
+/* Hide scrollbar for gallery if active */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Layer & Media Styles */
+.invitation6-intro-poster,
+.invitation6-intro-video,
+.invitation6-page-one-poster,
+.invitation6-page-one-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.invitation6-page-one-poster {
+  opacity: 1;
+  transition: opacity 300ms ease;
+  z-index: 0;
+}
+
+.invitation6-page-one-poster.is-video-playing {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.invitation6-page-one-video {
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 300ms ease;
+}
+
+.invitation6-page-one-video.is-visible {
+  opacity: 1;
+}
+
+.invitation6-layer-poster {
+  z-index: 0;
+}
+
+.invitation6-layer-video {
+  z-index: 1;
+}
+
+.invitation6-layer-scrim {
+  z-index: 2;
+}
+
+.invitation6-layer-content {
+  z-index: 3;
+}
+
+/* Door Knock Animation */
+@keyframes invitation6-door-knock {
+  0%   { transform: scale(1) translateX(0); }
+  12%  { transform: scale(0.996) translateX(-1px); }
+  24%  { transform: scale(1) translateX(1px); }
+  38%  { transform: scale(1) translateX(0); }
+  52%  { transform: scale(0.995) translateX(-1.5px); }
+  66%  { transform: scale(1) translateX(1px); }
+  100% { transform: scale(1) translateX(0); }
+}
+
+.invitation6-door-knocking {
+  animation: invitation6-door-knock 600ms ease-in-out both;
+  transform-origin: center center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invitation6-door-knocking {
+    animation: none !important;
+  }
+}
+
+/* Door invisible hit area (central 55-65% of door) */
+.invitation6-door-hit-area {
+  position: absolute;
+  top: 18%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  z-index: 10;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 1.5rem;
+}
+
+.invitation6-door-hit-area:focus-visible {
+  outline: 2px solid rgba(185, 149, 85, 0.7);
+  outline-offset: 4px;
+}
+
+/* Transparent Light Open Button */
+.invitation6-open-button {
+  background: rgba(250, 247, 240, 0.16);
+  border: 1px solid rgba(185, 149, 85, 0.62);
+  color: #4b3a30;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  box-shadow:
+    0 6px 20px rgba(55, 42, 31, 0.10),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  transition: all 200ms ease-out;
+}
+
+.invitation6-open-button:hover,
+.invitation6-open-button:active {
+  background: rgba(250, 247, 240, 0.24);
+  transform: scale(0.98);
+}
+
+/* Intro and Page One Crossfade Layer Transition */
+.invitation6-intro-layer,
+.invitation6-page-one-layer {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 820ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 820ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.invitation6-intro-layer.is-fading-out {
+  opacity: 0;
+  filter: blur(1.5px);
+  pointer-events: none;
+}
+
+/* Subtle Ivory Transition Flash */
+.invitation6-transition-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+  background: radial-gradient(
+    circle at 50% 42%,
+    rgba(255, 249, 235, 0.26) 0%,
+    rgba(255, 249, 235, 0.10) 35%,
+    transparent 72%
+  );
+  animation: invitation6-flash-fade 220ms ease-out both;
+}
+
+@keyframes invitation6-flash-fade {
+  0% { opacity: 0; }
+  35% { opacity: 0.35; }
+  100% { opacity: 0; }
+}
+
+/* 2. Page One Layout & Typography */
+.invitation6-page-one {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #000;
+}
+
+.invitation6-page-one__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: none;
+}
+
+.invitation6-page-one__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 1;
+  filter: none;
+}
+
+/* Section 1: Dark Transparent Overlay */
+.invitation6-page-one__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.12) 0%,
+    rgba(0, 0, 0, 0.20) 45%,
+    rgba(0, 0, 0, 0.34) 100%
+  );
+}
+
+/* Deactivate any white or bottom gradient overlay pseudo-elements */
+.invitation6-page-one::before,
+.invitation6-page-one::after,
+.invitation6-page-one__content::before,
+.invitation6-page-one__content::after,
+.invitation6-page-one__bottom-fade {
+  display: none !important;
+  content: none !important;
+}
+
+/* Section 2: 3-group lifted text content with centered names and distinct upper/lower groups */
+.invitation6-page-one__content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  min-height: 100svh;
+  text-align: center;
+  color: #fff;
+  pointer-events: none;
+}
+
+/* “Toy dəvətnaməsi” bir qədər yuxarı */
+.invitation6-page-one__eyebrow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 90%;
+  transform: translateX(-50%);
+
+  margin: 0;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: clamp(13px, 3.4vw, 16px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+}
+
+/* Adlar ekranın dəqiq mərkəzində */
+.invitation6-page-one__names {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  width: 92%;
+  transform: translate(-50%, -50%);
+
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(52px, 13.5vw, 74px);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: 0;
+}
+
+.invitation6-page-one__names span {
+  display: block;
+}
+
+.invitation6-page-one__ampersand {
+  margin: 3px 0;
+  color: var(--accent-color);
+  font-size: 0.58em;
+  font-weight: 400;
+  line-height: 0.72;
+}
+
+/* Digər məlumatlar adlardan aşağıda */
+.invitation6-page-one__lower-content {
+  position: absolute;
+  top: 59%;
+  left: 50%;
+  width: min(88%, 390px);
+  transform: translateX(-50%);
+}
+
+.invitation6-page-one__details {
+  margin: 0;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: clamp(13px, 3.4vw, 16px);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.invitation6-page-one__message {
+  max-width: 360px;
+  margin: 30px auto 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(16px, 4.1vw, 20px);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  font-style: italic;
+}
+
+.invitation6-page-one__families {
+  margin: 26px 0 0;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: clamp(12px, 3.15vw, 15px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.invitation6-page-one__eyebrow,
+.invitation6-page-one__names,
+.invitation6-page-one__lower-content {
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.58),
+    0 4px 14px rgba(0, 0, 0, 0.30);
+}
+
+@media (max-height: 740px) {
+  .invitation6-page-one__eyebrow {
+    top: 15%;
+  }
+
+  .invitation6-page-one__names {
+    top: 37%;
+    font-size: clamp(45px, 11.7vw, 61px);
+  }
+
+  .invitation6-page-one__lower-content {
+    top: 53%;
+  }
+
+  .invitation6-page-one__message {
+    margin-top: 20px;
+  }
+
+  .invitation6-page-one__families {
+    margin-top: 18px;
+  }
+}
+
+/* 3. Reusable Theme Utilities for Functional Sections */
+.invitation6-section {
+  background: var(--page-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.invitation6-card {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.invitation6-title {
+  color: var(--text-primary);
+}
+
+.invitation6-subtitle {
+  color: var(--text-secondary);
+}
+
+.invitation6-text {
+  color: var(--text-primary);
+}
+
+.invitation6-text-muted {
+  color: var(--text-secondary);
+}
+
+.invitation6-accent {
+  color: var(--accent-color);
+}
+
+.invitation6-border {
+  border-color: var(--border-color);
+}
+
+.invitation6-input {
+  background: var(--input-bg);
+  color: var(--input-text);
+  border-color: var(--border-color);
+}
+
+.invitation6-input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.invitation6-btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+}
